@@ -1,0 +1,35 @@
+.listAuth {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  font-size: 23px;
+}
+
+.link {
+  font-size: 16px;
+  display: inline-block;
+  text-decoration: none;
+  padding: 12;
+  font-weight: 700;
+  color: #3f51b5;
+}
+
+.link:hover,
+.link:focus {
+  text-decoration-line: underline;
+  background-color: inherit;
+}
+.activeLink {
+  color: #e84a5f;
+}
+
+.ItemAuth {
+  margin-right: 40px;
+}
+
+@media screen and (min-width: 720px) {
+  .link {
+    font-size: 23px;
+  }
+}
