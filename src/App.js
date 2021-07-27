@@ -1,17 +1,13 @@
-import React, { Component, Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import { Switch } from 'react-router-dom';
 import AppBar from 'components/AppBar';
-// import ContactsView from 'views/ContactsView';
-// import HomeView from 'views/HomeView';
-// import RegisterView from 'views/RegisterView';
-// import LoginView from 'views/LoginView';
-// import Container from './components/Container';
+import { useDispatch, useSelector } from 'react-redux';
+
 import {
   getCurrentUser,
   getFetchigCurrentUser,
   getCurrentToken,
 } from 'redux/auth';
-import { connect } from 'react-redux';
 import routes from './routes';
 import PrivateRoute from 'components/PriveteRoute';
 import PublicRoute from 'components/PublicRoute';
@@ -30,60 +26,50 @@ const ContactsView = lazy(() =>
   import('views/ContactsView' /*webpackChunkName: "contacts-view" */),
 );
 
-class App extends Component {
-  componentDidMount() {
-    this.props.isToken && this.props.onGetCurretnUser();
-  }
+const App = () => {
+  const isFetchigCurrentUser = useSelector(state =>
+    getFetchigCurrentUser(state),
+  );
 
-  render() {
-    return (
-      <div>
-        <AppBar />
-        {/* <Container> */}
-        {this.props.isFetchigCurrentUser ? (
-          <OnLoader />
-        ) : (
-          <Suspense fallback={<OnLoader />}>
-            <Switch>
-              <PublicRoute
-                exact
-                path={routes.home}
-                component={HomeView}
-                classN
-              />
-              <PublicRoute
-                path={routes.register}
-                restricted
-                component={RegisterView}
-                redirectTo={routes.contacts}
-              />
-              <PublicRoute
-                path={routes.login}
-                restricted
-                component={LoginView}
-                redirectTo={routes.contacts}
-              />
-              <PrivateRoute
-                path={routes.contacts}
-                component={ContactsView}
-                redirectTo={routes.login}
-              />
-            </Switch>
-          </Suspense>
-        )}
-        {/* </Container> */}
-      </div>
-    );
-  }
-}
+  const isToken = useSelector(state => getCurrentToken(state));
+  const dispatch = useDispatch();
+  const onGetCurretnUser = () => dispatch(getCurrentUser);
+  useEffect(() => {
+    isToken && onGetCurretnUser();
+  });
 
-const mapStateToProps = state => ({
-  isFetchigCurrentUser: getFetchigCurrentUser(state),
-  isToken: getCurrentToken(state),
-});
+  return (
+    <div>
+      <AppBar />
 
-const mapDispatchToProps = {
-  onGetCurretnUser: getCurrentUser,
+      {isFetchigCurrentUser ? (
+        <OnLoader />
+      ) : (
+        <Suspense fallback={<OnLoader />}>
+          <Switch>
+            <PublicRoute exact path={routes.home} component={HomeView} classN />
+            <PublicRoute
+              path={routes.register}
+              restricted
+              component={RegisterView}
+              redirectTo={routes.contacts}
+            />
+            <PublicRoute
+              path={routes.login}
+              restricted
+              component={LoginView}
+              redirectTo={routes.contacts}
+            />
+            <PrivateRoute
+              path={routes.contacts}
+              component={ContactsView}
+              redirectTo={routes.login}
+            />
+          </Switch>
+        </Suspense>
+      )}
+    </div>
+  );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
