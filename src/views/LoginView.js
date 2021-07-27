@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 
 import { logIn } from 'redux/auth';
@@ -9,49 +9,49 @@ import sAl from 'helpers/animation/animationLeft.module.css';
 
 import s from './Views.module.css';
 
-class LoginView extends Component {
-  state = {
+const LoginView = () => {
+  const initialState = {
     email: '',
     password: '',
   };
 
-  handleChange = ({ target: { name, value } }) => {
-    this.setState({ [name]: value });
-  };
+  const [state, setState] = useState(initialState);
+  const dispatch = useDispatch();
+  const onLogin = s => dispatch(logIn(s));
 
-  handleSubmit = e => {
+  const handleChange = ({ target: { name, value } }) => {
+    setState(prev => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  const handleSubmit = e => {
     e.preventDefault();
-
-    this.props.onLogin(this.state);
-
-    this.setState({ name: '', email: '', password: '' });
+    onLogin(state);
+    setState(prev => ({
+      ...prev,
+      email: '',
+      password: '',
+    }));
   };
-
-  render() {
-    const { email, password } = this.state;
-    return (
-      <div className={s.LoginContainer}>
-        <CSSTransition
-          in={true}
-          appear={true}
-          timeout={250}
-          classNames={sAl}
-          unmountOnExit
-        >
-          <LoginComponent
-            handleChange={this.handleChange}
-            email={email}
-            password={password}
-            handleSubmit={this.handleSubmit}
-          />
-        </CSSTransition>
-      </div>
-    );
-  }
-}
-
-const mapDispatchToProps = {
-  onLogin: logIn,
+  const { email, password } = state;
+  return (
+    <div className={s.LoginContainer}>
+      <CSSTransition
+        in={true}
+        appear={true}
+        timeout={250}
+        classNames={sAl}
+        unmountOnExit
+      >
+        <LoginComponent
+          handleChange={handleChange}
+          email={email}
+          password={password}
+          handleSubmit={handleSubmit}
+        />
+      </CSSTransition>
+    </div>
+  );
 };
-
-export default connect(null, mapDispatchToProps)(LoginView);
+export default LoginView;
