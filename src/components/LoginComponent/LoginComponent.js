@@ -3,12 +3,10 @@ import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-// import s from 'views/Views.module.css';
 import s from './LoginComponent.module.css';
 
 const LoginComponent = ({ handleChange, email, password, handleSubmit }) => {
   return (
-    // <div className={s.LoginContainer}>
     <div className={s.LoginSection}>
       <h1 className={s.LoginTitle}>Login</h1>
       <FormControl className={s.LoginFormControl}>
@@ -49,7 +47,6 @@ const LoginComponent = ({ handleChange, email, password, handleSubmit }) => {
         </Button>
       </FormControl>
     </div>
-    // </div>
   );
 };
 

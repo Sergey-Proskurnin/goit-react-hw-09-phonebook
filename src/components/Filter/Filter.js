@@ -1,7 +1,6 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 
 import s from './Filter.module.css';
 
@@ -9,7 +8,12 @@ import { changeFilter, getFilter } from 'redux/contacts';
 
 const filterInputId = uuidv4();
 
-const Filter = ({ filter, onChangeFilter }) => {
+const Filter = () => {
+  const filter = useSelector(state => getFilter(state));
+
+  const dispatch = useDispatch();
+  const onChangeFilter = e => dispatch(changeFilter(e.target.value));
+
   return (
     <label htmlFor={filterInputId}>
       <span className={s.span}>Find contacts by name and number</span>
@@ -24,17 +28,4 @@ const Filter = ({ filter, onChangeFilter }) => {
   );
 };
 
-Filter.propTypes = {
-  filter: PropTypes.string,
-  onChangeFilter: PropTypes.func,
-};
-
-const mapStateToProps = state => ({
-  filter: getFilter(state),
-});
-
-const mapDispatchToProps = dispatch => ({
-  onChangeFilter: e => dispatch(changeFilter(e.target.value)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Filter);
+export default Filter;

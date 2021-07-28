@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '@material-ui/core/Button';
 
 import { getUserName, logOut } from 'redux/auth';
@@ -7,7 +7,13 @@ import defaultAvatar from 'images/guardsman.png';
 
 import s from './UserMenu.module.css';
 
-const UserMenu = ({ name, avatar, onLogout }) => {
+const UserMenu = () => {
+  const name = useSelector(state => getUserName(state));
+  const avatar = defaultAvatar;
+
+  const dispatch = useDispatch();
+  const onLogout = () => dispatch(logOut());
+
   return (
     <div className={s.container}>
       <div>
@@ -29,13 +35,5 @@ const UserMenu = ({ name, avatar, onLogout }) => {
     </div>
   );
 };
-const mapStateToProps = state => ({
-  name: getUserName(state),
-  avatar: defaultAvatar,
-});
 
-const mapDispatchToProps = {
-  onLogout: logOut,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserMenu);
+export default UserMenu;
