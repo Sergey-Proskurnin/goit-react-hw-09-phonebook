@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -10,6 +11,7 @@ const RegisterComponent = ({
   name,
   email,
   password,
+  passwordRepeat,
   handleSubmit,
 }) => {
   return (
@@ -53,6 +55,17 @@ const RegisterComponent = ({
           label="Enter your password"
           variant="outlined"
         />
+        <TextField
+          style={{ marginTop: '20px' }}
+          onChange={handleChange}
+          type="password"
+          name="passwordRepeat"
+          required
+          value={passwordRepeat}
+          id="4"
+          label="Enter your password again"
+          variant="outlined"
+        />
         <Button
           type="submit"
           style={{ marginTop: '20px' }}
@@ -68,3 +81,12 @@ const RegisterComponent = ({
 };
 
 export default RegisterComponent;
+
+RegisterComponent.propTypes = {
+  handleChange: PropTypes.func,
+  name: PropTypes.string,
+  email: PropTypes.string,
+  password: PropTypes.string,
+  passwordRepeat: PropTypes.string,
+  handleSubmit: PropTypes.func,
+};

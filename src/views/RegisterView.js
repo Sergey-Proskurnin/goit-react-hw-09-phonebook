@@ -4,6 +4,7 @@ import { CSSTransition } from 'react-transition-group';
 
 import { register } from 'redux/auth';
 import RegisterComponent from 'components/RegisterComponent';
+import alert from 'helpers/alert';
 
 import s from './Views.module.css';
 import sAr from 'helpers/animation/animationRight.module.css';
@@ -13,6 +14,7 @@ const RegisterView = () => {
     name: '',
     email: '',
     password: '',
+    passwordRepeat: '',
   };
 
   const [state, setState] = useState(initialState);
@@ -27,18 +29,40 @@ const RegisterView = () => {
     }));
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    onRegister(state);
-    setState(prev => ({
-      ...prev,
-      name: '',
-      email: '',
-      password: '',
-    }));
+  const onPasswordVerification = state => {
+    const { password, passwordRepeat, name, email } = state;
+    if (
+      password === '' ||
+      passwordRepeat === '' ||
+      name === '' ||
+      email === ''
+    ) {
+      alert('Please fill in all fields marked with *!');
+      return;
+    }
+    if (password !== passwordRepeat) {
+      alert('Passwords do not match, please try again!');
+      return setState(prev => ({
+        ...prev,
+        password: '',
+        passwordRepeat: '',
+      }));
+    }
+    return (
+      onRegister(state) &&
+      setState(prev => ({
+        ...prev,
+        ...initialState,
+      }))
+    );
   };
 
-  const { name, email, password } = state;
+  const handleSubmit = e => {
+    e.preventDefault();
+    onPasswordVerification(state);
+  };
+
+  const { name, email, password, passwordRepeat } = state;
   return (
     <div className={s.RegisterContainer}>
       <CSSTransition
@@ -53,6 +77,7 @@ const RegisterView = () => {
           name={name}
           email={email}
           password={password}
+          passwordRepeat={passwordRepeat}
           handleSubmit={handleSubmit}
         />
       </CSSTransition>
