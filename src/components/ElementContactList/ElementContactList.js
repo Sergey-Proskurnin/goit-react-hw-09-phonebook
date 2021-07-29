@@ -6,7 +6,7 @@ import { getVisibleContacts, deleteContact } from 'redux/contacts';
 
 import s from './ElementContactList.module.css';
 
-const ElementContactList = () => {
+const ElementContactList = ({ toggleModal }) => {
   const contacts = useSelector(state => getVisibleContacts(state));
 
   const dispatch = useDispatch();
@@ -23,13 +23,18 @@ const ElementContactList = () => {
             {name}: {number}
           </span>
         </a>
-        <button
-          type="button"
-          className={s.btnList}
-          onClick={() => onDeleteContact(id)}
-        >
-          Delete
-        </button>
+        <div>
+          <button type="button" className={s.btnListChan} onClick={toggleModal}>
+            Сhange
+          </button>
+          <button
+            type="button"
+            className={s.btnListDel}
+            onClick={() => onDeleteContact(id)}
+          >
+            Delete
+          </button>
+        </div>
       </li>
     );
   });
