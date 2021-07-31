@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  //   getAllContacts,
+  getAllContacts,
   getChangeContact,
   changeContact,
   contactChange,
@@ -15,7 +15,7 @@ import alert from 'helpers/alert';
 const ContactFormChange = () => {
   const toggleModal = useContext(contextProps);
   const { name, number, id } = useSelector(state => getChangeContact(state));
-  //   const contacts = useSelector(state => getAllContacts(state));
+  const contacts = useSelector(state => getAllContacts(state));
 
   const [newName, setStateNewName] = useState(name);
   const [newNumber, setStateNewNumber] = useState(number);
@@ -41,6 +41,23 @@ const ContactFormChange = () => {
       alert(`You haven't made a change!`);
       return;
     }
+    if (
+      contacts
+        .filter(contact => contact.id !== id)
+        .some(contact => contact.name.toLowerCase() === newName.toLowerCase())
+    ) {
+      alert(`${newName} is already in contacts`);
+      return;
+    }
+    if (
+      contacts
+        .filter(contact => contact.id !== id)
+        .some(contact => contact.number === newNumber)
+    ) {
+      alert(`${newNumber} is already in contacts`);
+      return;
+    }
+
     const contact = { id, name: newName, number: newNumber };
     console.log(contact);
     console.log(changeContact);
@@ -49,7 +66,10 @@ const ContactFormChange = () => {
     dispatch(contactChange({}));
     toggleModal();
   };
-
+  const onUnchanged = () => {
+    dispatch(contactChange({}));
+    return toggleModal();
+  };
   return (
     <form className={s.CardOverley} onSubmit={handleSubmit}>
       <label htmlFor="1" className="lable">
@@ -85,7 +105,7 @@ const ContactFormChange = () => {
       <button className={s.button} type="submit">
         Change contact
       </button>
-      <button className={s.button} type="button" onClick={toggleModal}>
+      <button className={s.button} type="button" onClick={onUnchanged}>
         Unchanged
       </button>
     </form>

@@ -3,7 +3,7 @@
   height: 480px;
   background: linear-gradient(rgba(150, 154, 187, 0.9), rgba(47, 48, 58, 0.4)),
     url('images/telephone.jpg') no-repeat center center fixed;
-  background-size: cover;
+  background-size: 720px 480px;
   padding: 25px 20px;
   display: flex;
   flex-direction: column;

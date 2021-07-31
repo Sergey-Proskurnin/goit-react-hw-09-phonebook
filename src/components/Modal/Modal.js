@@ -1,11 +1,13 @@
 import React, { useEffect, useContext } from 'react';
+import { useDispatch } from 'react-redux';
 
 import contextProps from 'context/context';
 import ContactFormChange from 'components/ContactFormChange';
-
+import { contactChange } from 'redux/contacts';
 import s from './Modal.module.css';
 
 const Modal = () => {
+  const dispatch = useDispatch();
   const toggleModal = useContext(contextProps);
 
   const onKeyDown = e => {
@@ -23,6 +25,7 @@ const Modal = () => {
   const closeModal = e => {
     console.dir(e.target);
     if (e.target.nodeName === 'DIV') {
+      dispatch(contactChange({}));
       return toggleModal();
     }
   };
