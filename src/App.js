@@ -34,10 +34,8 @@ const App = () => {
   const isToken = useSelector(state => getCurrentToken(state));
 
   const dispatch = useDispatch();
-  // const onGetCurretnUser = () => dispatch(getCurrentUser());
 
   useEffect(() => {
-    // isToken && onGetCurretnUser();
     isToken && dispatch(getCurrentUser());
   }, [dispatch, isToken]);
 

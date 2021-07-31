@@ -8,12 +8,16 @@ import {
   deleteContactRequest,
   deleteContactSuccess,
   deleteContactError,
+  changeContactRequest,
+  changeContactSuccess,
+  changeContactError,
 } from './contacts-actions';
 
 import {
   fetchGetContacts,
   fetchPostContacts,
   fetchDeleteContacts,
+  fetchChangeContacts,
 } from 'services/fetchApi';
 
 //--------------------------------createAsyncThunk------------------------
@@ -33,6 +37,16 @@ const addContact = contact => dispatch => {
     });
 };
 
+const changeContact = contact => dispatch => {
+  dispatch(changeContactRequest());
+  fetchChangeContacts(contact)
+    .then(({ data }) => dispatch(changeContactSuccess(data)))
+    .catch(error => {
+      dispatch(changeContactError(error.message));
+      alert(`Error server: ${error.message}`);
+    });
+};
+
 const deleteContact = id => dispatch => {
   dispatch(deleteContactRequest());
   fetchDeleteContacts(id)
@@ -43,4 +57,4 @@ const deleteContact = id => dispatch => {
     });
 };
 
-export { addContact, deleteContact, fetchContacts };
+export { addContact, deleteContact, fetchContacts, changeContact };

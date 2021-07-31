@@ -1,8 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
+
+import contextProps from 'context/context';
+import ContactFormChange from 'components/ContactFormChange';
 
 import s from './Modal.module.css';
 
-const Modal = ({ toggleModal }) => {
+const Modal = () => {
+  const toggleModal = useContext(contextProps);
+
   const onKeyDown = e => {
     if (e.key === 'Escape') {
       toggleModal(e);
@@ -15,11 +20,17 @@ const Modal = ({ toggleModal }) => {
       window.removeEventListener('keydown', onKeyDown);
     };
   });
+  const closeModal = e => {
+    console.dir(e.target);
+    if (e.target.nodeName === 'DIV') {
+      return toggleModal();
+    }
+  };
 
   return (
-    <div onClick={toggleModal} className={s.Overlay}>
+    <div onClick={closeModal} className={s.Overlay}>
       <div className={s.Modal}>
-        {/* <img src={this.props.modalImg} alt={this.props.modalAlt} /> */}
+        <ContactFormChange />
       </div>
     </div>
   );

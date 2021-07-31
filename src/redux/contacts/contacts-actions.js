@@ -12,16 +12,26 @@ const deleteContactRequest = createAction('contacts/deleteContactRequest');
 const deleteContactSuccess = createAction('contacts/deleteContactSuccess');
 const deleteContactError = createAction('contacts/deleteContactError');
 
+const changeContactRequest = createAction('contacts/changeContactRequest');
+const changeContactSuccess = createAction('contacts/changeContactSuccess');
+const changeContactError = createAction('contacts/changeContactError');
+
 const changeFilter = createAction('contacts/changeFilter');
+
+const contactChange = createAction('contacts/changeContact');
 
 export {
   changeFilter,
+  contactChange,
   // fetchContactRequest,
   // fetchContactSuccess,
   // fetchContactError,
   addContactRequest,
   addContactSuccess,
   addContactError,
+  changeContactRequest,
+  changeContactSuccess,
+  changeContactError,
   deleteContactRequest,
   deleteContactSuccess,
   deleteContactError,

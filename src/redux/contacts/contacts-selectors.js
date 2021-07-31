@@ -6,6 +6,8 @@ const getFilter = state => state.contacts.filter;
 
 const getAllContacts = state => state.contacts.items;
 
+const getChangeContact = state => state.contacts.change;
+
 const sortAllContact = createSelector([getAllContacts], contacts => {
   return contacts.slice().sort((a, b) => a.name.localeCompare(b.name));
 });
@@ -27,4 +29,5 @@ export {
   getVisibleContacts,
   getAllContacts,
   sortAllContact,
+  getChangeContact,
 };

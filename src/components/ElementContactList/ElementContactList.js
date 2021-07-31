@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
 import { getVisibleContacts, deleteContact } from 'redux/contacts';
+import contextProps from 'context/context';
+import { contactChange } from 'redux/contacts';
 
 import s from './ElementContactList.module.css';
 
-const ElementContactList = ({ toggleModal }) => {
+const ElementContactList = () => {
+  const toggleModal = useContext(contextProps);
   const contacts = useSelector(state => getVisibleContacts(state));
 
   const dispatch = useDispatch();
   const onDeleteContact = id => dispatch(deleteContact(id));
+
+  const onChangeContact = contact => {
+    dispatch(contactChange(contact));
+    return toggleModal();
+  };
 
   return contacts.map(({ name, number, id }) => {
     return (
@@ -24,7 +32,11 @@ const ElementContactList = ({ toggleModal }) => {
           </span>
         </a>
         <div>
-          <button type="button" className={s.btnListChan} onClick={toggleModal}>
+          <button
+            type="button"
+            className={s.btnListChan}
+            onClick={() => onChangeContact({ name, number, id })}
+          >
             Сhange
           </button>
           <button

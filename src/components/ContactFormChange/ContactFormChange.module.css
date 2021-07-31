@@ -1,0 +1,53 @@
+.CardOverley {
+  width: 720px;
+  height: 480px;
+  background: linear-gradient(rgba(150, 154, 187, 0.9), rgba(47, 48, 58, 0.4)),
+    url('images/telephone.jpg') no-repeat center center fixed;
+  background-size: cover;
+  padding: 25px 20px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.input {
+  height: 30px;
+  border: 1px solid rgba(33, 33, 33, 0.2);
+  border-radius: 4px;
+  padding-left: 25px;
+  cursor: pointer;
+  max-width: 325px;
+  font-size: 20px;
+}
+.input:focus,
+:hover {
+  border-color: #3f51b5;
+}
+.input:focus {
+  outline: none;
+}
+.span {
+  display: block;
+  font-size: 28px;
+  padding-top: 20px;
+  padding-bottom: 5px;
+}
+.button {
+  cursor: pointer;
+  max-width: 260px;
+  border: none;
+  color: white;
+  padding: 5px 75px;
+  text-decoration: none;
+  background-color: #3f51b5;
+  font-size: 22px;
+  border-radius: 4px;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.button:hover,
+:focus {
+  color: #3f51b5;
+  background-color: white;
+}
