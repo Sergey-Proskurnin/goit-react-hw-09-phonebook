@@ -6,9 +6,6 @@ import alert from 'helpers/alert';
 import {
   changeFilter,
   contactChange,
-  // fetchContactRequest,
-  // fetchContactSuccess,
-  // fetchContactError,
   changeContactRequest,
   changeContactSuccess,
   changeContactError,

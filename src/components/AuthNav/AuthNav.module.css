@@ -1,3 +1,8 @@
+.AuthNavContainer {
+  display: flex;
+  align-items: center;
+}
+
 .listAuth {
   display: flex;
   padding: 0;
@@ -27,9 +32,17 @@
 .ItemAuth {
   margin-right: 40px;
 }
-
+.box {
+  width: 15px;
+}
+.boxContainer {
+  margin-right: 20px;
+}
 @media screen and (min-width: 720px) {
   .link {
     font-size: 23px;
+  }
+  .box {
+    width: 30px;
   }
 }

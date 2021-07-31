@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -50,4 +51,10 @@ const LoginComponent = ({ handleChange, email, password, handleSubmit }) => {
   );
 };
 
+LoginComponent.propTypes = {
+  handleChange: PropTypes.func,
+  email: PropTypes.string,
+  password: PropTypes.string,
+  handleSubmit: PropTypes.func,
+};
 export default LoginComponent;

@@ -59,8 +59,6 @@ const ContactFormChange = () => {
     }
 
     const contact = { id, name: newName, number: newNumber };
-    console.log(contact);
-    console.log(changeContact);
 
     dispatch(changeContact(contact));
     dispatch(contactChange({}));
@@ -71,7 +69,7 @@ const ContactFormChange = () => {
     return toggleModal();
   };
   return (
-    <form className={s.CardOverley} onSubmit={handleSubmit}>
+    <form className={s.cardOverley} onSubmit={handleSubmit}>
       <label htmlFor="1" className="lable">
         <span className={s.span}>Name</span>
         <input
@@ -102,10 +100,10 @@ const ContactFormChange = () => {
         />
       </label>
 
-      <button className={s.button} type="submit">
-        Change contact
+      <button className={s.buttonChange} type="submit">
+        Change
       </button>
-      <button className={s.button} type="button" onClick={onUnchanged}>
+      <button className={s.buttonUnchanged} type="button" onClick={onUnchanged}>
         Unchanged
       </button>
     </form>

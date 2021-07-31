@@ -31,7 +31,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "api-server": "json-server --port 4040 --delay 300 --watch db.json",
     "deploy": "netlify deploy -p",
     "prepare": "husky install"
   },
@@ -54,6 +53,8 @@
     ]
   },
   "devDependencies": {
+    "@pnotify/animate": "^5.2.0",
+    "@pnotify/countdown": "^5.2.0",
     "eslint": "^7.28.0",
     "husky": "^7.0.1",
     "lint-staged": "^11.1.1",

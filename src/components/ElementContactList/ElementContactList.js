@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
-import { getVisibleContacts, deleteContact } from 'redux/contacts';
+import { getVisibleContacts } from 'redux/contacts';
 import contextProps from 'context/context';
 import { contactChange } from 'redux/contacts';
 
@@ -13,7 +13,6 @@ const ElementContactList = () => {
   const contacts = useSelector(state => getVisibleContacts(state));
 
   const dispatch = useDispatch();
-  const onDeleteContact = id => dispatch(deleteContact(id));
 
   const onChangeContact = contact => {
     dispatch(contactChange(contact));
@@ -35,14 +34,14 @@ const ElementContactList = () => {
           <button
             type="button"
             className={s.btnListChan}
-            onClick={() => onChangeContact({ name, number, id })}
+            onClick={() => onChangeContact({ name, number, id, change: true })}
           >
             Сhange
           </button>
           <button
             type="button"
             className={s.btnListDel}
-            onClick={() => onDeleteContact(id)}
+            onClick={() => onChangeContact({ name, number, id, change: false })}
           >
             Delete
           </button>

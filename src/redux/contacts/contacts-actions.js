@@ -23,9 +23,6 @@ const contactChange = createAction('contacts/changeContact');
 export {
   changeFilter,
   contactChange,
-  // fetchContactRequest,
-  // fetchContactSuccess,
-  // fetchContactError,
   addContactRequest,
   addContactSuccess,
   addContactError,

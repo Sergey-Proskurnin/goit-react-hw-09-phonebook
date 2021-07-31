@@ -1,12 +1,17 @@
 import React, { useEffect, useContext } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { CSSTransition } from 'react-transition-group';
 
 import contextProps from 'context/context';
 import ContactFormChange from 'components/ContactFormChange';
-import { contactChange } from 'redux/contacts';
+import DeleteContact from 'components/DeleteContact';
+import { contactChange, getChangeContact } from 'redux/contacts';
+
 import s from './Modal.module.css';
+import sAl from 'helpers/animation/animationLeft.module.css';
 
 const Modal = () => {
+  const { change } = useSelector(state => getChangeContact(state));
   const dispatch = useDispatch();
   const toggleModal = useContext(contextProps);
 
@@ -23,7 +28,6 @@ const Modal = () => {
     };
   });
   const closeModal = e => {
-    console.dir(e.target);
     if (e.target.nodeName === 'DIV') {
       dispatch(contactChange({}));
       return toggleModal();
@@ -33,7 +37,15 @@ const Modal = () => {
   return (
     <div onClick={closeModal} className={s.Overlay}>
       <div className={s.Modal}>
-        <ContactFormChange />
+        <CSSTransition
+          in={true}
+          appear={true}
+          timeout={250}
+          classNames={sAl}
+          unmountOnExit
+        >
+          {change ? <ContactFormChange /> : <DeleteContact />}
+        </CSSTransition>
       </div>
     </div>
   );

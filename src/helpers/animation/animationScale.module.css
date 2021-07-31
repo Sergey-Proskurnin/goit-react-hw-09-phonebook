@@ -5,7 +5,7 @@
 .enterActive {
   opacity: 1;
   transform: scale(1);
-  transition: all 250ms linear;
+  transition: all 1000ms linear;
 }
 
 .exit {
@@ -16,5 +16,5 @@
 .exitActive {
   opacity: 0;
   transform: scale(0.1);
-  transition: all 250ms linear;
+  transition: all 1000ms linear;
 }

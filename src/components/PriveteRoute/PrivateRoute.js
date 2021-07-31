@@ -8,20 +8,14 @@ import { getIsAuthenticated } from 'redux/auth';
  * - If the route is private and the user is logged in, render the component
  * - Otherwise, render Redirect to / login
  */
-const PrivateRoute = ({ component: Component, redirectTo, ...routeProps }) => {
+
+const PrivateRoute = ({ redirectTo, children, ...routeProps }) => {
   const isAuthenticated = useSelector(state => getIsAuthenticated(state));
+
   return (
-    <Route
-      {...routeProps}
-      render={props =>
-        isAuthenticated ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to={redirectTo} />
-        )
-      }
-    />
+    <Route {...routeProps}>
+      {isAuthenticated ? children : <Redirect to={redirectTo} />}
+    </Route>
   );
 };
-
 export default PrivateRoute;
